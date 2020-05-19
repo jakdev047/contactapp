@@ -1,0 +1,19 @@
+{
+  "name": "contactapp",
+  "version": "1.0.0",
+  "description": "command line application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "contactapp",
+    "cli"
+  ],
+  "author": "Jubayer Alam Khan",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}
