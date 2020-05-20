@@ -40,7 +40,20 @@ const addContact = async(contact,email) => {
   }
 }
 
+const listContacts = async() => {
+  const contacts = await loadContacts();
+  if(contacts.length>0) {
+    console.log(contacts)
+    console.log('All Contacts List'.inverse.green);
+  }
+  else {
+    console.log('No Contact Found. Please Create One'.inverse.green);
+  }
+  
+}
+
 module.exports = {
   addContact,
-  isExistingEmail
+  isExistingEmail,
+  listContacts
 }

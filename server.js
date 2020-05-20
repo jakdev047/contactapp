@@ -2,7 +2,7 @@ const program = require('commander');
 const validator = require('validator');
 const colors = require('colors');
 const {prompt} = require('inquirer');
-const {addContact,isExistingEmail} = require('./contactsController');
+const {addContact,isExistingEmail,listContacts} = require('./contactsController');
 
 program.version('5.1.0');
 program.description('A command line Application');
@@ -52,12 +52,21 @@ const addQuestion = [
   }
 ]
 
+// add contact
 program.command('add')
         .alias('a')
         .description('to add data by command line')
         .action(async()=>{
           const contacts =  await prompt(addQuestion);
           addContact(contacts,contacts.email);
+        });
+
+// all contacts
+program.command('list')
+        .alias('l')
+        .description('to add data by command line')
+        .action(async()=>{
+          await listContacts();
         });
 
 if(!process.argv[2]) {
