@@ -22,7 +22,7 @@ async function saveContacts(contacts) {
   await writeFilePromise('./contacts.json',contactJSON);
 }
 
-async function isExistingEmail(email){
+const isExistingEmail = async(email) => {
   const contacts = await loadContacts();
   return contacts.find(eachContacts => eachContacts.email === email);
 }
@@ -41,5 +41,6 @@ const addContact = async(contact,email) => {
 }
 
 module.exports = {
-  addContact
+  addContact,
+  isExistingEmail
 }
