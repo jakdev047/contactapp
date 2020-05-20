@@ -1,5 +1,6 @@
 const program = require('commander');
 const validator = require('validator');
+const colors = require('colors');
 const {addContact} = require('./contactsController');
 
 program.version('5.1.0');
@@ -15,7 +16,7 @@ program.command('add')
         .action(({firstName,lastName,email,type})=>{
           const contacts = {firstName,lastName,email,type};
           if(!validator.isEmail(email)){
-            console.log('Please Provide valid Email');
+            console.log('Please Provide valid Email'.inverse.red);
           }
           else{
             addContact(contacts,email);

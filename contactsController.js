@@ -1,5 +1,6 @@
 const fs = require('fs');
 const util = require('util');
+const colors = require('colors');
 
 const readFilePromise = util.promisify(fs.readFile);
 const writeFilePromise = util.promisify(fs.writeFile);
@@ -30,12 +31,12 @@ const addContact = async(contact,email) => {
   const contacts = await loadContacts();
   const extistingContact = await isExistingEmail(email);
   if(extistingContact) {
-    console.log('Contact with this email Exist')
+    console.log('Contact with this email Exist'.inverse.red)
   }
   else {
     contacts.push(contact);
     await saveContacts(contacts);
-    console.log('Contact Successfully Addedd')
+    console.log('Contact Successfully Addedd'.inverse.green)
   }
 }
 
