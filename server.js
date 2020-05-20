@@ -2,7 +2,7 @@ const program = require('commander');
 const validator = require('validator');
 const colors = require('colors');
 const {prompt} = require('inquirer');
-const {addContact,isExistingEmail,listContacts,deleteContacts} = require('./contactsController');
+const {addContact,isExistingEmail,listContacts,deleteContacts,singleContacts} = require('./contactsController');
 
 program.version('5.1.0');
 program.description('A command line Application');
@@ -90,6 +90,16 @@ program.command('delete')
           deleteContacts(contact.email);
 
         });
+
+// single contact
+program.command('read')
+        .alias('r')
+        .description('to show a data by command line')
+        .action(async({email})=>{
+          const contact =  await prompt(singleEmail);
+          singleContacts(contact.email);
+        });
+
 
 
 if(!process.argv[2]) {
