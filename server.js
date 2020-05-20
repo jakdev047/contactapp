@@ -1,4 +1,5 @@
 const program = require('commander');
+const validator = require('validator');
 const {addContact} = require('./contactsController');
 
 program.version('5.1.0');
@@ -13,7 +14,13 @@ program.command('add')
         .option('-t,--type <type>','Type Your Contact','Personal')
         .action(({firstName,lastName,email,type})=>{
           const contacts = {firstName,lastName,email,type};
-          addContact(contacts);
+          if(!validator.isEmail(email)){
+            console.log('Please Provide valid Email');
+          }
+          else{
+            addContact(contacts);
+          }
+          
         });
 
 if(!process.argv[2]) {
@@ -23,4 +30,4 @@ if(!process.argv[2]) {
 
 program.parse(process.argv);
 
-// node server add -f Jubayer -l Khan -e shuvo047niter@gmail.com
+// c
