@@ -12,12 +12,16 @@ Runs the app in the development help mode.<br />
 
 ### `node server list`
 
-all contact runs the app in the development.<br />
+all contact show<br />
+
+### `node server read`
+
+single contact view.<br />
 
 ### `node server add`
 
-to add single contact runs the app in the development.<br />
+to add single contact<br />
 
 ### `node server delete`
 
-delete contact runs the app in the development.<br />
+delete contact .<br />
