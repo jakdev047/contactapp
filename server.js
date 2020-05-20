@@ -2,7 +2,7 @@ const program = require('commander');
 const validator = require('validator');
 const colors = require('colors');
 const {prompt} = require('inquirer');
-const {addContact,isExistingEmail,listContacts} = require('./contactsController');
+const {addContact,isExistingEmail,listContacts,deleteContacts} = require('./contactsController');
 
 program.version('5.1.0');
 program.description('A command line Application');
@@ -52,6 +52,18 @@ const addQuestion = [
   }
 ]
 
+const singleEmail = {
+  type: 'input',
+  name: 'email',
+  message: 'Type Your Email: ',
+  async validate(input) {
+    if(!input || !validator.isEmail(input)) {
+      console.log('Please Provide Valid Email'.inverse.red)
+    }
+    else {return true}
+  }
+}
+
 // add contact
 program.command('add')
         .alias('a')
@@ -64,10 +76,21 @@ program.command('add')
 // all contacts
 program.command('list')
         .alias('l')
-        .description('to add data by command line')
+        .description('to show all data by command line')
         .action(async()=>{
           await listContacts();
         });
+
+// delete contact
+program.command('delete')
+        .alias('d')
+        .description('to delete a data by command line')
+        .action(async({email})=>{
+          const contact =  await prompt(singleEmail);
+          deleteContacts(contact.email);
+
+        });
+
 
 if(!process.argv[2]) {
   program.help();

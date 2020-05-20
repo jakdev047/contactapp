@@ -52,8 +52,22 @@ const listContacts = async() => {
   
 }
 
+const deleteContacts = async(email) => {
+  const contacts = await loadContacts();
+  const contact = await isExistingEmail(email);
+  if(!contact) {
+    console.log('Contact Not Found'.inverse.red);
+  }
+  else {
+    const updateContact = contacts.filter(contact=>contact.email !== email);
+    await saveContacts(updateContact);
+    console.log('Contact has been deleted'.inverse.green);
+  }
+}
+
 module.exports = {
   addContact,
   isExistingEmail,
-  listContacts
+  listContacts,
+  deleteContacts
 }
