@@ -21,11 +21,22 @@ async function saveContacts(contacts) {
   await writeFilePromise('./contacts.json',contactJSON);
 }
 
-const addContact = async(contact) => {
+async function isExistingEmail(email){
   const contacts = await loadContacts();
-  contacts.push(contact);
-  await saveContacts(contacts);
-  console.log('Contact Successfully Addedd')
+  return contacts.find(eachContacts => eachContacts.email === email);
+}
+
+const addContact = async(contact,email) => {
+  const contacts = await loadContacts();
+  const extistingContact = await isExistingEmail(email);
+  if(extistingContact) {
+    console.log('Contact with this email Exist')
+  }
+  else {
+    contacts.push(contact);
+    await saveContacts(contacts);
+    console.log('Contact Successfully Addedd')
+  }
 }
 
 module.exports = {

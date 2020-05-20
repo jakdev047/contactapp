@@ -18,7 +18,7 @@ program.command('add')
             console.log('Please Provide valid Email');
           }
           else{
-            addContact(contacts);
+            addContact(contacts,email);
           }
           
         });
@@ -30,4 +30,4 @@ if(!process.argv[2]) {
 
 program.parse(process.argv);
 
-// c
+// node server add -f Jubayer -l Khan -e shuvo047niter@gmail.com
