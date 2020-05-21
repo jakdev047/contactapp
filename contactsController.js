@@ -76,10 +76,32 @@ const singleContacts = async(email) => {
   }
 }
 
+const updateContacts = async(updates,email) => {
+  const existanceContact = await isExistingEmail(email); // existance email check
+  const contacts = await loadContacts(); // full contact load
+
+  // data capture by input
+  const {firstName,lastName,email:inputEmail,type} = updates;
+  const updatedContactObj = {
+    firstName: firstName ? firstName : existanceContact.firstName,
+    lastName: lastName ? lastName : existanceContact.lastName,
+    email: inputEmail ? inputEmail : existanceContact.email,
+    type: type
+  }
+  
+  // data manupulated by contacts
+  const updatedContact = contacts.map(contact=> (contact.email===email) ? contact=updatedContactObj : contact);
+
+  // save update contact on contacts
+  await saveContacts(updatedContact);
+  console.log('Contact has successfully updated'.inverse.green);
+}
+
 module.exports = {
   addContact,
   isExistingEmail,
   listContacts,
   deleteContacts,
-  singleContacts
+  singleContacts,
+  updateContacts
 }

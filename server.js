@@ -2,7 +2,7 @@ const program = require('commander');
 const validator = require('validator');
 const colors = require('colors');
 const {prompt} = require('inquirer');
-const {addContact,isExistingEmail,listContacts,deleteContacts,singleContacts} = require('./contactsController');
+const {addContact,isExistingEmail,listContacts,deleteContacts,singleContacts,updateContacts} = require('./contactsController');
 
 program.version('5.1.0');
 program.description('A command line Application');
@@ -64,6 +64,36 @@ const singleEmail = {
   }
 }
 
+const updateQuestion = [
+  {
+    type: 'input',
+    name: 'firstName',
+    message: 'Type Your First Name: '
+  },
+  {
+    type: 'input',
+    name: 'lastName',
+    message: 'Type Your Last Name: '
+  },
+  {
+    type: 'input',
+    name: 'email',
+    message: 'Type Your Email: ',
+    async validate(input) {
+      if(input && !validator.isEmail(input)) {
+        console.log('Please Provide Valid Email'.inverse.red)
+      }
+      else {return true}
+    }
+  },
+  {
+    type: 'list',
+    name: 'type',
+    message: 'Select Contact type: ',
+    choices: ['Personal','Professional']
+  }
+]
+
 // add contact
 program.command('add')
         .alias('a')
@@ -98,6 +128,21 @@ program.command('read')
         .action(async({email})=>{
           const contact =  await prompt(singleEmail);
           singleContacts(contact.email);
+        });
+
+// update contact
+program.command('update')
+        .alias('u')
+        .description('to update a data by command line')
+        .requiredOption('-e,--email <email>','Type your email')
+        .action(async({email})=>{
+          if(await isExistingEmail(email)){
+            const contact =  await prompt(updateQuestion);
+            updateContacts(contact,email);
+          }
+          else {
+            console.log('Contact Not found with this email'.inverse.red);
+          }
         });
 
 

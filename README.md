@@ -10,17 +10,21 @@ Runs the app in the development mode.<br />
 
 Runs the app in the development help mode.<br />
 
-### `node server list`
+### `node server l`
 
 all contact show<br />
 
-### `node server read`
+### `node server r`
 
 single contact view.<br />
 
-### `node server add`
+### `node server a`
 
 to add single contact<br />
+
+### `node server u -e email_name`
+
+email contact .<br />
 
 ### `node server delete`
 
